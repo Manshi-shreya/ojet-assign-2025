@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculator</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+</head>
+<body>
+  <label>
+    Price: 
+    <input type="number" data-bind="value: price, valueUpdate: 'input'" placeholder="Enter price" />
+  </label>
+  <br><br>
+  <label>
+    Quantity: 
+    <input type="number" data-bind="value: quantity, valueUpdate: 'input'" placeholder="Enter quantity" />
+  </label>
+  <br><br>
+  <label>
+    Total: 
+    <input type="text" data-bind="value: total" readonly />
+  </label>
+  
+
+  <script>
+    function AppViewModel() {
+      var self = this;
+      self.price = ko.observable('');
+      self.quantity = ko.observable('');
+
+      
+      self.total = ko.computed(function() {
+       
+        var p = parseFloat(self.price()) || 0;
+        var q = parseFloat(self.quantity()) || 0;
+        return p * q;
+      });
+    }
+
+    ko.applyBindings(new AppViewModel());
+  </script>
+</body>
+</html>

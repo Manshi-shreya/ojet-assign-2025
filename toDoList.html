@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Knockout Dynamic To-Do List</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+  
+</head>
+<body>
+  
+  <input type="text" data-bind="value: newTask, valueUpdate: 'input'" placeholder="Enter new task" />
+  <button data-bind="click: addTask">Add Task</button>
+
+
+  <ul data-bind="foreach: tasks">
+    <li>
+      <span data-bind="text: $data"></span>
+      <button data-bind="click: $parent.removeTask">Remove</button>
+    </li>
+  </ul>
+
+  <script>
+    function ToDoListViewModel() {
+      var self = this;
+      self.newTask = ko.observable('');
+      self.tasks = ko.observableArray([]);
+
+    
+      self.addTask = function() {
+        var task = self.newTask().trim();
+        if (task) {
+          self.tasks.push(task);
+          self.newTask(''); 
+        }
+      };
+
+     
+      self.removeTask = function(task) {
+        self.tasks.remove(task);
+      };
+    }
+
+    ko.applyBindings(new ToDoListViewModel());
+  </script>
+</body>
+</html>

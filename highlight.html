@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Highlight Sentence</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+  
+</head>
+<body>
+  <label>
+    <input type="checkbox" data-bind="checked: isImportant"> Is Important
+  </label>
+  <br><br>
+  <div data-bind="highlight: isImportant">Important text</div>
+
+  <script>
+    
+    ko.bindingHandlers.highlight = {
+      update: function(element, valueAccessor) {
+        var isHighlighted = ko.unwrap(valueAccessor());
+        if (isHighlighted) {
+          element.style.background = "green";
+        } else {
+          element.style.background = ""; 
+        }
+      }
+    };
+
+    
+    function AppViewModel() {
+      this.isImportant = ko.observable(false);
+    }
+
+    ko.applyBindings(new AppViewModel());
+  </script>
+</body>
+</html>
